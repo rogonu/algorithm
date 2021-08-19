@@ -1,15 +1,20 @@
 import sys
 sys.stdin = open('input.txt', 'r')
 
-TC = int(input())
+TC =  int(input())
 for tc in range(1, TC+1):
     N = int(input())
-    Arr = []
+    Arr = [[0]*N for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            if i == j or j == 0:
+                Arr[i][j] = 1
+            elif j > 0 and i > 0:
+                Arr[i][j] = Arr[i-1][j] + Arr[i-1][j-1]
+    for i in range(N):
+        for j in range(N):
+            if j > i:
+                Arr[i][j] = ''
     print(f'#{tc}')
-    for i in range(1,N+1):
-
-        if i != 1 and i != 2:
-            for j in range(1,i-2):
-                Arr[i]= Arr[i] + Arr[i-1]
-        Arr.append(1)
-        print(' '.join(map(str, Arr)))
+    for i in range(N):
+        print(' '.join(map(str, Arr[i])))
